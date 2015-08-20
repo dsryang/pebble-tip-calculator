@@ -1,0 +1,23 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "David Yang",
+    "longName": "Tip Calculator",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Tip Calculator",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "59533078-1ee9-4711-892a-79b14bf9ff74",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": false
+    }
+}
