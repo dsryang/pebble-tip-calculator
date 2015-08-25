@@ -7,13 +7,22 @@
     "longName": "Tip Calculator",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+            {
+                "file": "images/up.png",
+                "name": "UP_IMAGE",
+                "type": "png"
+            },
+            {
+                "file": "images/down.png",
+                "name": "DOWN_IMAGE",
+                "type": "png"
+            }]
     },
     "sdkVersion": "3",
     "shortName": "Tip Calculator",
     "targetPlatforms": [
-        "aplite",
-        "basalt"
+        "basalt", "chalk"
     ],
     "uuid": "59533078-1ee9-4711-892a-79b14bf9ff74",
     "versionLabel": "1.0",
