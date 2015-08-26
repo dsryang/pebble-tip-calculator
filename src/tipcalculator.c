@@ -40,107 +40,107 @@ static void update_subtotal();
 static void update_arrows();
 
 static void tip_back_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	window_stack_remove(tip_window, true);
+  window_stack_remove(tip_window, true);
 }
 
 static void tip_up_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	if (tip == 99) {
-		tip = 0;
-	}
-	else {
-		tip += 1;
-	}
-	update_tip_and_total();
+  if (tip == 99) {
+    tip = 0;
+  }
+  else {
+    tip += 1;
+  }
+  update_tip_and_total();
 }
 
 static void tip_down_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	if (tip == 0) {
-		tip = 99;
-	}
-	else {
-		tip -= 1;
-	}
-	update_tip_and_total();
+  if (tip == 0) {
+    tip = 99;
+  }
+  else {
+    tip -= 1;
+  }
+  update_tip_and_total();
 }
 
 static void subtotal_back_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	if (subtotal_field == 0) {
-		window_stack_pop_all(true);
-	}
-	else if (subtotal_field == 1) {
-		subtotal_field = 0;
-
-		arrow_x = (window_width / 2) + DOLLAR_OFFSET;
-		bitmap_layer_destroy(up_arrow_layer);
-		bitmap_layer_destroy(down_arrow_layer);
-		update_arrows();
-	}
+  if (subtotal_field == 0) {
+    window_stack_pop_all(true);
+  }
+  else if (subtotal_field == 1) {
+    subtotal_field = 0;
+    
+    arrow_x = (window_width / 2) + DOLLAR_OFFSET;
+    bitmap_layer_destroy(up_arrow_layer);
+    bitmap_layer_destroy(down_arrow_layer);
+    update_arrows();
+  }
 }
 
 static void subtotal_select_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	if (subtotal_field == 0) {
-		subtotal_field = 1;
-		if (dollar < 10) {
-			arrow_x = (window_width / 2) + CENT1_OFFSET;
-		}
-		else if (dollar < 100) {
-			arrow_x = (window_width / 2) + CENT10_OFFSET;
-		}
-		else {
-			arrow_x = (window_width / 2) + CENT100_OFFSET;
-		}
-
+  if (subtotal_field == 0) {
+    subtotal_field = 1;
+    if (dollar < 10) {
+      arrow_x = (window_width / 2) + CENT1_OFFSET;
+    }
+    else if (dollar < 100) {
+      arrow_x = (window_width / 2) + CENT10_OFFSET;
+    }
+    else {
+      arrow_x = (window_width / 2) + CENT100_OFFSET;
+    }
+    
     // Destroy existing GBitmaps and Bitmap Layers
-	  bitmap_layer_destroy(up_arrow_layer);
-		bitmap_layer_destroy(down_arrow_layer);
-		update_arrows();
-	}
-	else if (subtotal_field == 1) {
-		// Show the tip Window on the watch
-		window_stack_push(tip_window, true);
-	}
+    bitmap_layer_destroy(up_arrow_layer);
+    bitmap_layer_destroy(down_arrow_layer);
+    update_arrows();
+  }
+  else if (subtotal_field == 1) {
+    // Show the tip Window on the watch
+    window_stack_push(tip_window, true);
+  }
 }
 
 static void subtotal_up_single_click_handler(ClickRecognizerRef recognizer, void *context) {
-	if (subtotal_field == 0) {
-  		if (dollar == 999) {
-  			dollar = 0;
-  		}
-  		else {
-  			dollar += 1;
-  		}
-  	}
-  	else if (subtotal_field == 1) {
-  		if (cent == 99) {
-  			cent = 0;
-  		}
-  		else {
-  			cent += 1;
-  		}
-  	}
-
-  	update_subtotal();
+  if (subtotal_field == 0) {
+    if (dollar == 999) {
+      dollar = 0;
+    }
+    else {
+      dollar += 1;
+    }
+  }
+  else if (subtotal_field == 1) {
+    if (cent == 99) {
+      cent = 0;
+    }
+    else {
+      cent += 1;
+    }
+  }
+  
+  update_subtotal();
 }
 
 static void subtotal_down_single_click_handler(ClickRecognizerRef recognizer, void *context) {
   if (subtotal_field == 0) {
-		if (dollar == 0) {
- 			dollar = 999;
- 		}
- 		else {
- 			dollar -= 1;
- 		}
- 	}
- 	else if (subtotal_field == 1) {
- 		if (cent == 0) {
- 			cent = 99;
- 		}
- 		else {
- 			cent -= 1;
- 		}
- 	}
-
-  	update_subtotal();
+    if (dollar == 0) {
+      dollar = 999;
+    }
+    else {
+      dollar -= 1;
+    }
+  }
+  else if (subtotal_field == 1) {
+    if (cent == 0) {
+      cent = 99;
+    }
+    else {
+      cent -= 1;
+    }
+  }
+  
+  update_subtotal();
 }
 
 static void tip_config_provider(Window *window) {
@@ -180,7 +180,7 @@ static void update_tip_and_total() {
 
   tip_cent = (dollar * tip) % 100;
   if ((cent * tip) % 100 >= 50) {
-  	tip_cent += 1; // Third digit in cents is 5 or over, round up
+    tip_cent += 1; // Third digit in cents is 5 or over, round up
   }
   if (tip_cent >= 100) {
     tip_dollar += tip_cent / 100; // Find how many dollars to add depending on how many hundred cents
@@ -190,8 +190,8 @@ static void update_tip_and_total() {
 
   total_dollar = tip_dollar + dollar;
   if (total_cent >= 100) {
-  	total_dollar += total_cent / 100; // Find how many dollars to add depending on how many hundred cents
-  	total_cent = total_cent % 100; // Remove the hundreds to leave the cents
+    total_dollar += total_cent / 100; // Find how many dollars to add depending on how many hundred cents
+    total_cent = total_cent % 100; // Remove the hundreds to leave the cents
   }
   snprintf(tip_amount_buffer, sizeof(tip_amount_buffer), "%d.%02d", tip_dollar, tip_cent);
   text_layer_set_text(tip_amount_layer, tip_amount_buffer);
@@ -224,66 +224,66 @@ static void update_arrows() {
 }
 
 static void tip_window_load(Window *window) {
-	// Get the root layer
-	Layer *tip_window_layer = window_get_root_layer(window);
-
-	int16_t tip_y = (window_height / 2) + TIP_OFFSET;
+  // Get the root layer
+  Layer *tip_window_layer = window_get_root_layer(window);
+  
+  int16_t tip_y = (window_height / 2) + TIP_OFFSET;
   int16_t tip_amount_y = (window_height / 2) + TIP_AMOUNT_OFFSET;
-	int16_t tip_height = 40;
-	int16_t total_header_y = (window_height / 2) + TOTAL_HEADER_OFFSET;
-	int16_t total_header_height = 40;
-	int16_t total_amount_y = (window_height / 2) + TOTAL_AMOUNT_OFFSET;
-	int16_t total_amount_height = 40;
-
-	// Create tip TextLayer
-	tip_layer = text_layer_create(GRect(0, tip_y, window_width, tip_height));
-	text_layer_set_background_color(tip_layer, GColorClear);
-	text_layer_set_text_color(tip_layer, GColorBlack);
-
-	// Apply tip to TextLayer
-	tip_font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-	text_layer_set_font(tip_layer, tip_font);
-	text_layer_set_text_alignment(tip_layer, GTextAlignmentCenter);
-	layer_add_child(tip_window_layer, text_layer_get_layer(tip_layer));
-
+  int16_t tip_height = 40;
+  int16_t total_header_y = (window_height / 2) + TOTAL_HEADER_OFFSET;
+  int16_t total_header_height = 40;
+  int16_t total_amount_y = (window_height / 2) + TOTAL_AMOUNT_OFFSET;
+  int16_t total_amount_height = 40;
+  
+  // Create tip TextLayer
+  tip_layer = text_layer_create(GRect(0, tip_y, window_width, tip_height));
+  text_layer_set_background_color(tip_layer, GColorClear);
+  text_layer_set_text_color(tip_layer, GColorBlack);
+  
+  // Apply tip to TextLayer
+  tip_font = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
+  text_layer_set_font(tip_layer, tip_font);
+  text_layer_set_text_alignment(tip_layer, GTextAlignmentCenter);
+  layer_add_child(tip_window_layer, text_layer_get_layer(tip_layer));
+  
   // Create tip amount TextLayer
   tip_amount_layer = text_layer_create(GRect(0, tip_amount_y, window_width, tip_height));
   text_layer_set_background_color(tip_amount_layer, GColorClear);
   text_layer_set_text_color(tip_amount_layer, GColorBlack);
-
+  
   // Apply tip amount to TextLayer
   text_layer_set_font(tip_amount_layer, tip_font);
   text_layer_set_text_alignment(tip_amount_layer, GTextAlignmentCenter);
   layer_add_child(tip_window_layer, text_layer_get_layer(tip_amount_layer));
-
-	// Create total header TextLayer
-	total_header_layer = text_layer_create(GRect(0, total_header_y, window_width, total_header_height));
-	text_layer_set_background_color(total_header_layer, GColorClear);
-	text_layer_set_text_color(total_header_layer, GColorBlack);
-
-	// Apply total header to TextLayer
-	total_header_font = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
-	text_layer_set_font(total_header_layer, total_header_font);
-	text_layer_set_text(total_header_layer, "TOTAL");
-	text_layer_set_text_alignment(total_header_layer, GTextAlignmentCenter);
-	layer_add_child(tip_window_layer, text_layer_get_layer(total_header_layer));
-
-	// Create total amount TextLayer
-	total_amount_layer = text_layer_create(GRect(0, total_amount_y, window_width, total_amount_height));
+  
+  // Create total header TextLayer
+  total_header_layer = text_layer_create(GRect(0, total_header_y, window_width, total_header_height));
+  text_layer_set_background_color(total_header_layer, GColorClear);
+  text_layer_set_text_color(total_header_layer, GColorBlack);
+  
+  // Apply total header to TextLayer
+  total_header_font = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
+  text_layer_set_font(total_header_layer, total_header_font);
+  text_layer_set_text(total_header_layer, "TOTAL");
+  text_layer_set_text_alignment(total_header_layer, GTextAlignmentCenter);
+  layer_add_child(tip_window_layer, text_layer_get_layer(total_header_layer));
+  
+  // Create total amount TextLayer
+  total_amount_layer = text_layer_create(GRect(0, total_amount_y, window_width, total_amount_height));
   text_layer_set_background_color(total_amount_layer, GColorClear);
   text_layer_set_text_color(total_amount_layer, GColorBlack);
-
+  
   // Apply total amount to TextLayer
   total_amount_font = fonts_get_system_font(FONT_KEY_LECO_36_BOLD_NUMBERS);
   text_layer_set_font(total_amount_layer, total_amount_font);
   text_layer_set_text_alignment(total_amount_layer, GTextAlignmentCenter);
   layer_add_child(tip_window_layer, text_layer_get_layer(total_amount_layer));
-
-	// Create tip circle TextLayer
+  
+  // Create tip circle TextLayer
   tip_circle_layer = layer_create(GRect(0, 0, window_width, window_height));
   layer_set_update_proc(tip_circle_layer, draw_tip_circle_layer);
   layer_add_child(tip_window_layer, tip_circle_layer);
-
+  
   // Sets the tip and total
   update_tip_and_total();
 }
@@ -369,8 +369,8 @@ static void init() {
     .unload = subtotal_window_unload
   });
   window_set_window_handlers(tip_window, (WindowHandlers) {
-  	.load = tip_window_load,
-  	.unload = tip_window_unload
+    .load = tip_window_load,
+    .unload = tip_window_unload
   });
 
   // Set click config provider callback
