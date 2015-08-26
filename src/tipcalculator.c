@@ -144,9 +144,9 @@ static void subtotal_down_single_click_handler(ClickRecognizerRef recognizer, vo
 }
 
 static void tip_config_provider(Window *window) {
-	window_single_click_subscribe(BUTTON_ID_BACK, tip_back_single_click_handler);
-	window_single_click_subscribe(BUTTON_ID_UP, tip_up_single_click_handler);
-	window_single_click_subscribe(BUTTON_ID_DOWN, tip_down_single_click_handler);
+  window_single_click_subscribe(BUTTON_ID_BACK, tip_back_single_click_handler);
+  window_single_click_subscribe(BUTTON_ID_UP, tip_up_single_click_handler);
+  window_single_click_subscribe(BUTTON_ID_DOWN, tip_down_single_click_handler);
 }
 
 static void subtotal_config_provider(Window *window) {
